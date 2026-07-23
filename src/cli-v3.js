@@ -77,7 +77,7 @@ async function startupUpdate(workspace) {
 export async function main(args = [], { workspace = process.cwd() } = {}) {
   const [command, ...rest] = args;
   if (command === 'setup') {
-    const result = await runFullSetup({ workspace, askLaunch: !rest.includes('--no-tui') });
+    const result = await runFullSetup({ workspace, askLaunch: !rest.includes('--no-tui'), autoDetect: rest.includes('--auto') });
     if (result.launchTui) return legacyMain([], { workspace });
     return result.ok ? 0 : 1;
   }

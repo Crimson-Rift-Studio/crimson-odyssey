@@ -6,7 +6,8 @@ import { readMessages, createSession, listSessions, sessionMeta } from '../sessi
 import { runAgentTurn } from '../agent/runtime.js';
 import { loadoutPreview, loadSkillCatalog, equipSkill } from '../loadout/engine.js';
 import { PROVIDERS, fetchModels } from '../providers/catalog.js';
-import { writeJSON } from '../core/fs.js';
+import { readJSON, writeJSON } from '../core/fs.js';
+import { prepareModelSelection } from '../providers/picker.js';
 import { createLogger } from '../core/log.js';
 
 const ENTER_ALT = '\x1b[?1049h';
@@ -158,20 +159,22 @@ export async function runTUI({ workspace = process.cwd(), sessionId = null } = {
   function saveModel(providerId, model, custom = false) {
     const latest = loadWorkspaceState(workspace);
     const provider = PROVIDERS.find((item) => item.id === providerId);
-    const providerConfig = latest.config.providers?.[providerId] || {};
-    const selected = {
-      provider: providerId,
-      model,
-      custom,
-      baseUrl: providerConfig.baseUrl || provider?.baseUrl || null,
-      secretRef: providerConfig.secretRef || (provider?.secretEnv ? `env:${provider.secretEnv}` : null),
-      updatedAt: new Date().toISOString()
-    };
+    const config = readJSON(latest.paths.config, latest.config);
+    let selected;
+    try {
+      selected = prepareModelSelection(providerId, model, config, { custom });
+    } catch (error) {
+      addMessage('error', error.message, 'error');
+      closeModal();
+      return false;
+    }
+    writeJSON(latest.paths.config, config);
     writeJSON(latest.paths.model, selected);
     state.model = selected;
     logger('info', 'model.changed', { provider: providerId, model });
     addMessage('system', `Model changed to ${provider?.name || providerId} / ${model}.`);
     closeModal();
+    return true;
   }
 
   function openLoadoutModal() {

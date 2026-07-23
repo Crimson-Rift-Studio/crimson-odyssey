@@ -5,7 +5,7 @@ import { resolveSecret } from '../core/secrets.js';
 export const PROVIDERS = [
   {
     id: 'openai',
-    name: 'OpenAI',
+    name: 'OpenAI direct API',
     kind: 'openai',
     baseUrl: 'https://api.openai.com/v1',
     modelsPath: '/models',
@@ -14,7 +14,7 @@ export const PROVIDERS = [
   },
   {
     id: 'anthropic',
-    name: 'Anthropic',
+    name: 'Anthropic direct API',
     kind: 'anthropic',
     baseUrl: 'https://api.anthropic.com',
     modelsPath: '/v1/models',
@@ -23,7 +23,7 @@ export const PROVIDERS = [
   },
   {
     id: 'gemini',
-    name: 'Google Gemini',
+    name: 'Google Gemini direct API',
     kind: 'openai',
     baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai',
     modelsPath: '/models',
@@ -85,8 +85,29 @@ export const PROVIDERS = [
     suggested: []
   },
   {
+    id: 'codex-cli',
+    name: 'OpenAI Codex CLI',
+    kind: 'cli',
+    command: 'codex',
+    suggested: ['default', 'gpt-5.2-codex']
+  },
+  {
+    id: 'claude-cli',
+    name: 'Claude Code CLI',
+    kind: 'cli',
+    command: 'claude',
+    suggested: ['default', 'sonnet', 'opus']
+  },
+  {
+    id: 'gemini-cli',
+    name: 'Gemini CLI',
+    kind: 'cli',
+    command: 'gemini',
+    suggested: ['default']
+  },
+  {
     id: 'custom',
-    name: 'Custom OpenAI-compatible',
+    name: 'Custom OpenAI-compatible endpoint',
     kind: 'openai',
     baseUrl: null,
     modelsPath: '/models',
@@ -125,19 +146,20 @@ export async function fetchModels(providerId, config, { paths, refresh = false, 
   const providerConfig = config?.providers?.[providerId] || {};
   const cacheFile = paths ? join(paths.cache, `models-${providerId}.json`) : null;
   const ttl = (config?.models?.cacheTtlHours ?? 24) * 3600 * 1000;
+  const cached = cacheFile ? readJSON(cacheFile, null) : null;
   if (!refresh && cacheFile) {
-    const cached = readJSON(cacheFile, null);
     if (cached?.fetchedAt && Date.now() - Date.parse(cached.fetchedAt) < ttl && Array.isArray(cached.models)) {
       return buildCatalog(provider, cached.models, true, cached.fetchedAt);
     }
   }
 
   const baseUrl = providerConfig.baseUrl || provider.baseUrl;
-  if (!baseUrl) return buildCatalog(provider, [], false, null);
+  if (provider.kind === 'cli') return buildCatalog(provider, [], false, null);
+  if (!baseUrl) return buildCatalog(provider, [], false, null, `No base URL is configured for ${provider.name}`);
   const secretRef = providerConfig.secretRef || (provider.secretEnv ? `env:${provider.secretEnv}` : null);
   const key = resolveSecret(secretRef);
   if (provider.secretEnv && !key && !['ollama', 'lmstudio'].includes(providerId)) {
-    return buildCatalog(provider, [], false, null);
+    return buildCatalog(provider, [], false, null, `No credential is available for ${provider.name}`);
   }
 
   const controller = new AbortController();
@@ -158,20 +180,22 @@ export async function fetchModels(providerId, config, { paths, refresh = false, 
     const fetchedAt = new Date().toISOString();
     if (cacheFile) writeJSON(cacheFile, { provider: providerId, fetchedAt, models });
     return buildCatalog(provider, models, false, fetchedAt);
-  } catch {
-    return buildCatalog(provider, [], false, null);
+  } catch (error) {
+    const fallback = Array.isArray(cached?.models) ? cached.models : [];
+    return buildCatalog(provider, fallback, fallback.length > 0, cached?.fetchedAt || null, error.message || String(error));
   } finally {
     clearTimeout(timer);
   }
 }
 
-function buildCatalog(provider, live, fromCache, fetchedAt) {
+function buildCatalog(provider, live, fromCache, fetchedAt, error = null) {
   const merged = [...new Set([...(provider.suggested || []), ...live])];
   return {
     provider,
     models: merged.map((id) => ({ id, tags: classifyModel(id, provider.id), source: live.includes(id) ? 'live' : 'suggested' })),
     fromCache,
     fetchedAt,
-    liveAvailable: live.length > 0
+    liveAvailable: live.length > 0,
+    error
   };
 }

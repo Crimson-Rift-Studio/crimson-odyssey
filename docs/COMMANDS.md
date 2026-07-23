@@ -4,7 +4,7 @@
 
 ```text
 crimson
-crimson setup [--no-tui]
+crimson setup [--auto] [--no-tui]
 crimson model
 crimson doctor [--json] [--live]
 crimson fix

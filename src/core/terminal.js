@@ -1,33 +1,45 @@
 import readline from 'node:readline/promises';
 import { stdin, stdout } from 'node:process';
 
-export async function readSecret(prompt) {
-  if (!stdin.isTTY) {
-    const reader = readline.createInterface({ input: stdin, output: stdout });
+export function readMaskedInput(prompt, { input = stdin, output = stdout } = {}) {
+  return new Promise((resolve, reject) => {
+    const characters = [];
+    const wasRaw = Boolean(input.isRaw);
+    const redraw = () => output.write(`\r\x1b[2K${prompt}${'*'.repeat(characters.length)}`);
+    const cleanup = () => {
+      input.off('data', onData);
+      if (input.isTTY && input.setRawMode && !wasRaw) input.setRawMode(false);
+    };
+    const finish = (error) => {
+      cleanup();
+      output.write('\n');
+      if (error) reject(error);
+      else resolve(characters.join('').trim());
+    };
+    const onData = (chunk) => {
+      const text = String(chunk).replaceAll('\x1b[200~', '').replaceAll('\x1b[201~', '');
+      for (const character of text) {
+        if (character === '\x03') return finish(new Error('Secret input cancelled'));
+        if (character === '\r' || character === '\n') return finish();
+        if (character === '\b' || character === '\x7f') characters.pop();
+        else if (character >= ' ') characters.push(character);
+      }
+      redraw();
+    };
+
+    output.write(prompt);
+    if (input.isTTY && input.setRawMode && !wasRaw) input.setRawMode(true);
+    input.setEncoding?.('utf8');
+    input.on('data', onData);
+    input.resume?.();
+  });
+}
+
+export async function readSecret(prompt, { input = stdin, output = stdout } = {}) {
+  if (!input.isTTY) {
+    const reader = readline.createInterface({ input, output });
     try { return (await reader.question(prompt)).trim(); }
     finally { reader.close(); }
   }
-  stdout.write(prompt);
-  stdin.setRawMode(true);
-  stdin.resume();
-  let value = '';
-  return new Promise((resolve) => {
-    function finish(result) {
-      stdin.off('data', onData);
-      stdin.setRawMode(false);
-      stdout.write('\n');
-      resolve(result);
-    }
-    function onData(chunk) {
-      const text = String(chunk);
-      if (text === '\u0003') return finish('');
-      if (text === '\r' || text === '\n') return finish(value.trim());
-      if (text === '\x7f' || text === '\b') {
-        value = [...value].slice(0, -1).join('');
-        return;
-      }
-      if (/^[\x20-\x7E]+$/.test(text)) value += text;
-    }
-    stdin.on('data', onData);
-  });
+  return readMaskedInput(prompt, { input, output });
 }

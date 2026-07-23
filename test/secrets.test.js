@@ -40,8 +40,8 @@ test('log sanitizer removes common Telegram, Discord, and provider token pattern
     ['sk-', 'abcdefghijklmnopqrstuvwxyz', '123456'].join('')
   ].join(' ');
   const out = sanitizeLogText(text);
-  assert.equal(out.includes('8663874963:'), false;
-  assert.equal(out.includes('.GkwEAg.'), false;
-  assert.equal(out.includes(['sk-', 'abcdefghijklmnopqrstuvwxyz'].join('')), false;
+  assert.equal(out.includes('8663874963:'), false);
+  assert.equal(out.includes('.GkwEAg.'), false);
+  assert.equal(out.includes(['sk-', 'abcdefghijklmnopqrstuvwxyz'].join('')), false);
   assert.match(out, /\[REDACTED\]/);
 });

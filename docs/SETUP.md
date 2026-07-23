@@ -14,8 +14,8 @@ crimson setup
 2. Keep or customize Identity.
 3. Keep or customize Soul.
 4. Select a provider.
-5. Select secure credential storage, an existing environment variable, or skip.
-6. Select a live or suggested model, or enter an exact model ID.
+5. Keep or replace an existing credential, or enter the required API key directly.
+6. Select a live, cached, suggested, current, or exact model ID.
 7. Select a starter Loadout.
 8. Select a security profile.
 9. Select history retention.
@@ -23,6 +23,10 @@ crimson setup
 11. Optionally configure Telegram, Discord, or both.
 12. Run doctor verification.
 13. Optionally enter the TUI immediately.
+
+Use `crimson setup --auto` to resolve and verify installed Codex, Claude Code, Gemini, Command Code, OpenCode, Kilo, Cline, Aider, and Ollama commands. CLI bridges store the resolved executable path and use the official non-interactive command without reading another agent's private authentication files.
+
+Secret prompts accept normal Windows Terminal, PowerShell, and right-click paste. Received characters are shown only as mask characters.
 
 ## Files updated
 

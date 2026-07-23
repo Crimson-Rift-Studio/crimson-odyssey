@@ -31,6 +31,8 @@ Telegram and Discord are owner-only. A correct UID alone is not enough. The conf
 
 Model and remote message text is sanitized before TUI rendering. OSC, DCS, CSI, and control bytes are removed to prevent terminal control injection.
 
+Interactive secret prompts process pasted input as stdin chunks, show only mask characters, and never print the entered secret.
+
 ## Workspace safety
 
 Runtime state is stored inside the active workspace, but credentials remain outside the workspace. `.crimson/` is ignored by Git.
