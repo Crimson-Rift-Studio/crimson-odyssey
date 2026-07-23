@@ -2,13 +2,13 @@
 
 **Equip your agent. Enter the rift.**
 
-Crimson Odyssey is a multilingual, loadout-driven AI agent for the terminal by Crimson Rift Studio. Version 0.2.0 introduces an adaptive TUI, project-local Soul and Identity, selective Loadout context, multi-provider model routing, persistent sessions, and owner-only Telegram and Discord gateways.
+Crimson Odyssey is a multilingual, loadout-driven terminal AI agent by Crimson Rift Studio. Version 0.3.0 adds one-command onboarding and a secure update lifecycle so normal users do not need to edit `.env`, JSON, or YAML by hand.
 
 ## Requirements
 
 - Node.js 22 or newer
-- A terminal with ANSI support
-- A model provider API key, or a local Ollama or LM Studio server
+- An ANSI-capable terminal
+- A provider API key, or a local Ollama or LM Studio server
 
 ## Install
 
@@ -18,201 +18,141 @@ Crimson Odyssey is a multilingual, loadout-driven AI agent for the terminal by C
 git clone https://github.com/aabrur/crimson-odyssey.git
 cd crimson-odyssey
 npm link
-crimson --version
+crimson setup
 ```
 
 ### npm from GitHub
 
 ```bash
-npm install -g github:aabrur/crimson-odyssey
-crimson --version
+npm install -g github:aabrur/crimson-odyssey#main
+crimson setup
 ```
-
-The repository is private during development. GitHub authentication must already be configured for Git or npm.
 
 ### Windows PowerShell
 
-After cloning the repository:
-
 ```powershell
+git clone https://github.com/aabrur/crimson-odyssey.git
+cd crimson-odyssey
 Set-ExecutionPolicy -Scope Process Bypass
 .\install.ps1
-crimson --version
+crimson setup
 ```
 
-### Linux or macOS
+## One-command full setup
 
-After cloning the repository:
+Run:
 
 ```bash
-chmod +x install.sh
-./install.sh
-crimson --version
+crimson setup
 ```
+
+The wizard configures language behavior, Identity, Soul, provider, model, secure credential storage, starter Loadout, security profile, history retention, update behavior, and optional Telegram or Discord gateways. It writes project-local state automatically and can open the TUI when setup finishes.
+
+Normal users do not need a `.env` file. Credentials are stored in an operating-system keyring when supported, with an AES-256-GCM encrypted vault fallback. Workspace files contain credential references only.
+
+Use this to change only the active model later:
+
+```bash
+crimson model
+```
+
+## Updates
+
+Crimson can check for updates on interactive startup, show a notice before the TUI opens, and provide dedicated CLI update commands.
+
+```bash
+crimson update status
+crimson update check
+crimson update apply
+crimson update configure
+```
+
+Update modes:
+
+- `notify`: show availability and let the user decide
+- `ask`: request approval before applying
+- `auto`: apply during interactive startup when safe, then request restart
+- `off`: disable update checks
+
+Git updates use fast-forward-only pull and refuse to run when the working tree is dirty. Application updates do not overwrite `.crimson/odyssey/` workspace state.
 
 ## Quick start
 
 ```bash
-crimson setup
 crimson doctor
 crimson
 ```
 
-`crimson` opens the adaptive TUI. In a wide terminal, a scrollable sidebar appears on the right. In a narrow terminal, the conversation uses the full width and the sidebar can be toggled with `Ctrl+B`.
+In a wide terminal, the adaptive TUI displays an independently scrollable right sidebar. `Ctrl+B` toggles it. The transcript and sidebar scroll independently while the composer stays fixed at the bottom.
 
-The main conversation surface has no outer top frame and no outer left frame. Conversation history, activity, tool events, and logs remain scrollable without moving the composer from the bottom.
+Useful commands:
 
-## TUI controls
-
-| Control | Action |
-|---|---|
-| `PgUp` / `PgDn` | Scroll conversation history |
-| Mouse wheel | Scroll the pane under the pointer |
-| `Tab` | Change focus between composer, transcript, and sidebar |
-| `Ctrl+B` | Toggle sidebar |
-| `/model` | Open provider and model picker |
-| `/loadout` | Open skill and slot picker |
-| `/session` | Switch or create a session |
-| `/logs` | Focus the sidebar log stream |
-| `/help` | Show commands |
-| `/exit` | Close Crimson Odyssey |
+```text
+/model       Select provider and model
+/loadout     Manage equipped skills
+/session     Switch or create a session
+/update      Check update status
+/help        Show commands
+/exit        Close Crimson
+```
 
 ## Project-local state
 
-Crimson initializes the following structure inside the active workspace:
+Crimson initializes:
 
 ```text
-.crimson/
-└── odyssey/
-    ├── soul.yaml
-    ├── identity.yaml
-    ├── heartbeat.json
-    ├── agent.yaml
-    ├── workspace.yaml
-    ├── config.json
-    ├── model.json
-    ├── memory/
-    ├── sessions/
-    ├── histories/
-    ├── loadouts/
-    ├── skills/
-    ├── gateways/
-    ├── logs/
-    ├── cache/
-    ├── revisions/
-    └── state/
+.crimson/odyssey/
+  soul.yaml
+  identity.yaml
+  heartbeat.json
+  agent.yaml
+  workspace.yaml
+  config.json
+  model.json
+  memory/
+  sessions/
+  histories/
+  loadouts/
+  skills/
+  gateways/
+  logs/
+  cache/
+  state/
+  revisions/
 ```
 
-Workspace state and runtime history are ignored by Git by default.
+This directory is ignored by Git. Soul and Identity edits have revision history and rollback.
 
 ## Loadout
 
-Each Loadout supports:
+The default slot contract is:
 
 - 1 Weapon
 - 1 Armor
 - 2 Accessories
 - 2 Magic
 
-Weapon and Armor remain active as the operating contract. On the first turn of a session, Crimson performs a full Loadout bootstrap. Later turns use selective context for Accessories and Magic according to task triggers.
+The first turn loads the full equipped Loadout. Later turns inject only relevant context. External skills can be installed from `SKILL.md` or `skill.json`.
+
+## Gateways
+
+Telegram and Discord are owner-only. Setup stores bot tokens securely and writes only secret references into gateway configuration. The owner must complete an expiring `/bind CODE` challenge before remote messages are accepted.
 
 ```bash
-crimson loadout list
-crimson loadout preview
-crimson loadout equip software-engineer weapon
-crimson loadout equip deep-research magic
-crimson loadout install ./my-skill
-crimson loadout validate
-```
-
-External skills can use either `skill.json` or `SKILL.md`. See [docs/LOADOUT.md](docs/LOADOUT.md).
-
-## Model providers
-
-Initial provider support:
-
-1. OpenAI
-2. Anthropic
-3. Google Gemini
-4. xAI
-5. Mistral
-6. Groq
-7. OpenRouter
-8. Ollama
-9. LM Studio
-10. Custom OpenAI-compatible endpoint
-
-Both `crimson setup` and `/model` use provider-first model selection. A model ID can always be entered manually. Live model catalogs are fetched when credentials and network access are available, then cached locally. Suggested model IDs are fallbacks, not availability guarantees.
-
-## Telegram and Discord
-
-Gateway credentials are stored through the operating-system keyring when available. The encrypted local vault is used as fallback. Tokens are never written into workspace config or logs.
-
-```bash
-crimson gateway add telegram
-crimson gateway add discord
 crimson gateway list
 crimson gateway doctor telegram
-crimson gateway bind telegram
 crimson gateway start telegram
 ```
-
-Each gateway is owner-only by default. After adding a gateway, Crimson generates a short pairing code. Send `/bind CODE` from the configured owner UID while the gateway is running.
-
-Discord message handling requires the Message Content intent to be enabled in the Discord Developer Portal. The optional Server ID limits the bot to one server. Telegram uses long polling through the official Bot API.
-
-See [docs/GATEWAYS.md](docs/GATEWAYS.md) for setup and verification.
-
-## Soul and Identity
-
-Soul and Identity are editable and revisioned:
-
-```bash
-crimson soul show
-crimson soul set purpose "Build carefully and verify every result."
-crimson soul rollback 0
-
-crimson identity show
-crimson identity set language auto
-crimson identity rollback 0
-```
-
-Every edit creates a rollback snapshot inside `.crimson/odyssey/revisions/`.
-
-## Sessions and retention
-
-History retention defaults to 90 days and can be changed in `.crimson/odyssey/config.json`.
-
-```bash
-crimson session list
-crimson session new
-crimson session archive <session-id>
-crimson session prune 90
-```
-
-## Security
-
-- No raw secrets in repository files or logs
-- Owner UID enforcement for remote gateways
-- Pairing code with expiry
-- Project-local workspace state
-- ANSI control sequence sanitization
-- Encrypted local secret vault fallback
-- Soul and Identity revision history
-- No silent model fallback
-
-Read [docs/SECURITY.md](docs/SECURITY.md) before enabling remote gateways.
 
 ## Verification
 
 ```bash
 npm run verify
-npm run verify:live  # optional, requires gateway environment variables
 crimson doctor --json
 ```
 
-The verification gate runs syntax checks, repository policy checks, automated tests, package dry-run, and CLI smoke tests through GitHub Actions.
+The v0.3.0 local release candidate passed 55 automated tests, syntax verification, secret scanning, no-em-dash enforcement, package dry-run, local package installation, setup tests, TUI layout tests, and mocked gateway verification.
 
-## License
+Live provider, gateway, and remote GitHub update success remains environment-dependent and must be proved on a machine with credentials and external network access.
 
-MIT
+See `docs/SETUP.md`, `docs/UPDATES.md`, and `VERIFICATION_REPORT.md` for the complete contract.

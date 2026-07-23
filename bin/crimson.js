@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { main } from '../src/cli.js';
+import { main } from '../src/cli-v3.js';
 
 main(process.argv.slice(2))
   .then((code) => process.exit(typeof code === 'number' ? code : 0))

@@ -1,6 +1,6 @@
 {
   "name": "crimson-odyssey",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A multilingual, loadout-driven terminal AI agent by Crimson Rift Studio.",
   "type": "module",
   "bin": {
@@ -17,7 +17,9 @@
     "check": "node test/syntax-check.js && node test/no-em-dash.test.js",
     "verify": "npm run check && npm test && npm pack --dry-run",
     "doctor": "node bin/crimson.js doctor",
-    "verify:live": "node scripts/live-gateway-check.js"
+    "verify:live": "node scripts/live-gateway-check.js",
+    "update:check": "node bin/crimson.js update check",
+    "setup": "node bin/crimson.js setup --no-tui"
   },
   "keywords": [
     "ai",
@@ -36,6 +38,7 @@
     "src",
     "docs",
     "scripts",
+    "BUILD_MANIFEST.json",
     "README.md",
     "CHANGELOG.md",
     "LICENSE",

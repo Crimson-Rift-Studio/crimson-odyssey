@@ -1,337 +1,85 @@
 {
   "product": "Crimson Odyssey",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "generatedAt": "2026-07-23T00:00:00Z",
   "repository": "aabrur/crimson-odyssey",
   "branch": "main",
-  "fileCount": 65,
-  "totalBytes": 170285,
-  "rootSha256": "8ac5576ca405a918bdfbf5b475744d5d4ae26a772fd47bca6a96a98f478284a4",
+  "fileCount": 73,
+  "totalBytes": 209904,
+  "rootSha256": "19f574614a032756ba2c63212a8716c77ba4e2615252752d39bac7a4f5c38e41",
   "files": [
-    {
-      "path": ".github/workflows/ci.yml",
-      "bytes": 663,
-      "sha256": "f140306def7fa62f4ef91dbc5c348a6ef8970b5ebabffa3cda1fb471f7594280"
-    },
-    {
-      "path": ".github/workflows/live-gateway.yml",
-      "bytes": 585,
-      "sha256": "3e98e682a91cccf48bc97d4f7ca08822739b3501c3cdd5b5550abfcbb8b176c5"
-    },
-    {
-      "path": ".gitignore",
-      "bytes": 153,
-      "sha256": "89ede964641916e30d5f520329990e11f7774fa9111ec17fece9040a1e414f35"
-    },
-    {
-      "path": "CHANGELOG.md",
-      "bytes": 1417,
-      "sha256": "5c6ad6f52c5937ce54f211c8016fd39b12efb157024714c31d772aa97b57a175"
-    },
-    {
-      "path": "LICENSE",
-      "bytes": 1076,
-      "sha256": "10a744c528b0b5352da8e99ee8c4cc29a77eab01a7a020aa92286e861ed93b27"
-    },
-    {
-      "path": "README.md",
-      "bytes": 5911,
-      "sha256": "9198cf8b0af1408fe5ef1659b8bc2919202add222d6e6d2d0adef2901e0925aa"
-    },
-    {
-      "path": "VERIFICATION_REPORT.md",
-      "bytes": 2750,
-      "sha256": "6db088c16a4991794d751d20cfb05c6b47bd79ab38fde94e331dcc3606f426c3"
-    },
-    {
-      "path": "bin/crimson.js",
-      "bytes": 373,
-      "sha256": "0041334002ab10e9c104cd16dfa4c9877fc94578e816b7bb533b17e4b21e208c"
-    },
-    {
-      "path": "config.example.json",
-      "bytes": 637,
-      "sha256": "fcad05e1a84593d4bdf18f20e28f3a262be2c2b35e3170ac326b1f18134ec3a7"
-    },
-    {
-      "path": "docs/ARCHITECTURE.md",
-      "bytes": 1743,
-      "sha256": "3e63fc8b6ee5d1bc86871e303d1f963a1952291eb32815a55e3967b52c02ea35"
-    },
-    {
-      "path": "docs/COMMANDS.md",
-      "bytes": 931,
-      "sha256": "02eeb8b22420f86d00915b9ea08df02f69c65f4e90384cb0ec0b18dcb4c64c4a"
-    },
-    {
-      "path": "docs/GATEWAYS.md",
-      "bytes": 1665,
-      "sha256": "53e75339bebbf76041d186a5e4fd316958c4bb25ba6d2bd5865f01f4b1927e00"
-    },
-    {
-      "path": "docs/LOADOUT.md",
-      "bytes": 1363,
-      "sha256": "1f5c0481f53e741e85691163c6a74a6337f7d74d3c59425e4385868113d2311a"
-    },
-    {
-      "path": "docs/SECURITY.md",
-      "bytes": 1320,
-      "sha256": "b57a594961ff15918218a9dc608a3c720b84ef46eb6a55faa02c9b729968ab20"
-    },
-    {
-      "path": "docs/TUI.md",
-      "bytes": 1176,
-      "sha256": "971b390784a77db3f7045628177e1bb5b55abda814b985ce8db719cf2c4d046d"
-    },
-    {
-      "path": "docs/VERIFICATION.md",
-      "bytes": 924,
-      "sha256": "e0d5906e5e7b089e7308d0bbedbb81aadf9014abc40db25adcb1806134921851"
-    },
-    {
-      "path": "install.ps1",
-      "bytes": 905,
-      "sha256": "375630ea8f5639c08079e314149aea53c7bd901ad23e6b69e23d368a17d27b0b"
-    },
-    {
-      "path": "install.sh",
-      "bytes": 607,
-      "sha256": "cabf281fc36b6f2bb38f74572450f0ac7dacb49c522b606e093b49c8bf972803"
-    },
-    {
-      "path": "package.json",
-      "bytes": 1318,
-      "sha256": "5ce84a106fe5e6ce4fecf1d2aa59c570844632cbac089594256a559c9ea8e6ca"
-    },
-    {
-      "path": "scripts/live-gateway-check.js",
-      "bytes": 973,
-      "sha256": "c5f8bd8cbe6e30c100486f2ae679188d695aef80724c77e99a4ea34bb3d25825"
-    },
-    {
-      "path": "src/agent/prompt.js",
-      "bytes": 1080,
-      "sha256": "e507bfe99c5b593f9bf3ee1b994efd35249e09a8fae943048c5641c1e3646710"
-    },
-    {
-      "path": "src/agent/runtime.js",
-      "bytes": 3333,
-      "sha256": "e046745c5b641eab42fb92a796023d115cd93f68e9ef2659e9d6e2b2058fd471"
-    },
-    {
-      "path": "src/cli.js",
-      "bytes": 16239,
-      "sha256": "ca068ce51764e1d8400abc917a7b165dacd4b2ec5e138ad69ccc12a4ebdac981"
-    },
-    {
-      "path": "src/core/fs.js",
-      "bytes": 1470,
-      "sha256": "6c3bda8657b26d48dbe8695dc0a2c3716b9396d945b2e2b92f0dca95965cb84f"
-    },
-    {
-      "path": "src/core/identity.js",
-      "bytes": 158,
-      "sha256": "a5105210b7f748684a17d6d3afeeb96d3f2ec7299f191bdf1c776eb58021ea85"
-    },
-    {
-      "path": "src/core/log.js",
-      "bytes": 995,
-      "sha256": "47582e4889ad81d9ccf741bfe424d1cb8c827db0a5eb153d61011fde5160a17e"
-    },
-    {
-      "path": "src/core/paths.js",
-      "bytes": 1433,
-      "sha256": "6bfcaf0afe7eff540625de1f98a14f2d97c152c726e93788468bb950a6fa49de"
-    },
-    {
-      "path": "src/core/revisions.js",
-      "bytes": 1118,
-      "sha256": "a08e4071e6881e3e8b7e117ce3fc2791dc93370c6e488ae48c5f4ba7efbb8282"
-    },
-    {
-      "path": "src/core/secrets.js",
-      "bytes": 5291,
-      "sha256": "cbb78343b054b9b34580787aa4f7601f6af60854c1674a0232f320d5ad982e7e"
-    },
-    {
-      "path": "src/core/state.js",
-      "bytes": 4480,
-      "sha256": "a2c84ef658756941a97efc37f672ede46840fc0a5591efb30ea6f05273bc5252"
-    },
-    {
-      "path": "src/core/terminal.js",
-      "bytes": 1004,
-      "sha256": "a0ec8d36dbb2f52fccb11d37738b7aa3d2e0d0903e918137a7449dbc08d4ef59"
-    },
-    {
-      "path": "src/core/yaml.js",
-      "bytes": 3017,
-      "sha256": "5f84a2d6a0ec85427413fd430cea9e1d41e03557ce50124f2ae6c09efb39ed20"
-    },
-    {
-      "path": "src/doctor.js",
-      "bytes": 3400,
-      "sha256": "55b79cc07f06462ec615cc4e111eeda504fccc4d6e637720957534adc276ac4c"
-    },
-    {
-      "path": "src/gateway/common.js",
-      "bytes": 2028,
-      "sha256": "2fff3bdc1c0926fb482d21db31eac2031bf0aaa0dd472be09614fd427a9617a9"
-    },
-    {
-      "path": "src/gateway/discord.js",
-      "bytes": 5522,
-      "sha256": "8f37f22f146bfac87762f6d359cebcb5a41fedd6473a21dbb65918309762828a"
-    },
-    {
-      "path": "src/gateway/index.js",
-      "bytes": 929,
-      "sha256": "8d052d4fd1f7d6ad25a0e0bdb22e387889409f1461f112b4f74578b67fa890d1"
-    },
-    {
-      "path": "src/gateway/telegram.js",
-      "bytes": 3159,
-      "sha256": "a05ddce0a750cee466ed9e375052a875c7588185cb93fc09704a2a2a4a65fae2"
-    },
-    {
-      "path": "src/index.js",
-      "bytes": 433,
-      "sha256": "5898ea7a8db609d3662bfd0634716d9a07f1fb31ccd2c999cb426db3332269d0"
-    },
-    {
-      "path": "src/loadout/catalog.js",
-      "bytes": 3506,
-      "sha256": "9a6e849d20e09c5c484ec93ca54d7def607a92d7fc33e6641e464b25832b7c54"
-    },
-    {
-      "path": "src/loadout/engine.js",
-      "bytes": 6747,
-      "sha256": "1bfbbe32ba0cf8ed1bb72afc1a907299fe58d2db06bee0abc48cbe5addf89f5b"
-    },
-    {
-      "path": "src/providers/catalog.js",
-      "bytes": 5804,
-      "sha256": "257b33252415f785ea341aff6d59ef0f3d3411e09761d2ecd1975e9ae3672f32"
-    },
-    {
-      "path": "src/providers/client.js",
-      "bytes": 4041,
-      "sha256": "4fa193891919635caa70b8c141ca8f598ec49c37e7dbf9fbddfa3b3b091552d1"
-    },
-    {
-      "path": "src/providers/picker.js",
-      "bytes": 3647,
-      "sha256": "4d5e263f9fb602393b1ca7d1e4305156e7a52eccee013587fbe4b0803b3e2d91"
-    },
-    {
-      "path": "src/session/session.js",
-      "bytes": 3552,
-      "sha256": "e12938582bb04ee7508488f4f64eb5d32b87150476a609f85655fccea501fae0"
-    },
-    {
-      "path": "src/tui/ansi.js",
-      "bytes": 2329,
-      "sha256": "155b2b3ae5e3457a5f6b6f248151df8a98107890966b470063595328372b7881"
-    },
-    {
-      "path": "src/tui/app.js",
-      "bytes": 16286,
-      "sha256": "18ac5ba845330aab8f2bd4c98b3e4cc887b9eb4550bf0139eeb8f5e35953d939"
-    },
-    {
-      "path": "src/tui/input.js",
-      "bytes": 1394,
-      "sha256": "ea6b76b60674e12b640f0282f0411cbdcd8d629d9c312b1f93da73a1f3b15975"
-    },
-    {
-      "path": "src/tui/layout.js",
-      "bytes": 7121,
-      "sha256": "b50789bd51087192d96d7fb9bf2769a97b7e9543ef2b95684eb2d5d54d23a240"
-    },
-    {
-      "path": "test/agent.test.js",
-      "bytes": 2796,
-      "sha256": "a794d55d16e23b43947756160c24b36d2e23b4055e7fcb30961ebc9f90ae8a7b"
-    },
-    {
-      "path": "test/cli.test.js",
-      "bytes": 2083,
-      "sha256": "eb7cca0b55bb3f97581cec07ccf1b7f3a96085a4947b032ae191028ea7c564ef"
-    },
-    {
-      "path": "test/doctor.test.js",
-      "bytes": 775,
-      "sha256": "8e166bbde0affe7daf28a19c0fc4d3cb882eb17c1097e10f5718c6246b0ea891"
-    },
-    {
-      "path": "test/gateway.test.js",
-      "bytes": 3543,
-      "sha256": "0b3cfae673faa199e858a1606f62ad8d5e1243eafb6535bde7cbbd3fc4a95355"
-    },
-    {
-      "path": "test/helpers.js",
-      "bytes": 570,
-      "sha256": "11bd5c8a7ca58acaf2381b3a97a465c0946901d5e9f141126848fa152ffb13f9"
-    },
-    {
-      "path": "test/install.test.js",
-      "bytes": 459,
-      "sha256": "b5431a8ee25538d2895003c1202b209c1f9c01a243a6ba4c0ff08615135f6622"
-    },
-    {
-      "path": "test/loadout.test.js",
-      "bytes": 3390,
-      "sha256": "66c500d0f791b5c41a7942b0020dc3d56339d0082e6749ffc266eb71a18ebec0"
-    },
-    {
-      "path": "test/no-em-dash.test.js",
-      "bytes": 821,
-      "sha256": "72f592276f9dc401a4c2da068018f581b60ab7775fe18e0de98cbc6798ced998"
-    },
-    {
-      "path": "test/package.test.js",
-      "bytes": 419,
-      "sha256": "11b712ede6aa47b82494d60a0b3e6ed4780b76ea853ffab3f092181384e9ae6d"
-    },
-    {
-      "path": "test/providers.test.js",
-      "bytes": 5103,
-      "sha256": "be617d9093af9a18cf24651dbf9268fae9d0475f8093aae5cd37dc27c7e0817f"
-    },
-    {
-      "path": "test/secrets.test.js",
-      "bytes": 2152,
-      "sha256": "dde813e374167d2fd132e8ac8c6407eba550626a797f1cfbd6646a9dd9d1d826"
-    },
-    {
-      "path": "test/security.test.js",
-      "bytes": 1357,
-      "sha256": "59586ea7c04e02081ef71b332cc51fbeb4d76c2bfca0e86532e48baa8150c646"
-    },
-    {
-      "path": "test/session.test.js",
-      "bytes": 2516,
-      "sha256": "f75f98af285f9437a392011d59f0dcf54599db8c3e165d4ad26b3884ed9586aa"
-    },
-    {
-      "path": "test/state.test.js",
-      "bytes": 2195,
-      "sha256": "4a8fee2c7caa5d5c7a8703ed04eaa733ab5b329f2672b04c0010f8054db739a6"
-    },
-    {
-      "path": "test/syntax-check.js",
-      "bytes": 931,
-      "sha256": "ee7ef722c8efed0196eeaa77b450fefe9d66068f6078672748d43cc17b25067d"
-    },
-    {
-      "path": "test/tui-input.test.js",
-      "bytes": 993,
-      "sha256": "21fbe1f7f35bf8accbd530f5eab3d6def43e9b73b5d10b64dd7d344a92eb8470"
-    },
-    {
-      "path": "test/tui-layout.test.js",
-      "bytes": 4176,
-      "sha256": "fbe1e44858f41c4fc7e4fd00fd20834fea0d83789fb9d159b87da1449ec49ac0"
-    }
+    {"path":".github/workflows/ci.yml","bytes":663,"sha256":"f140306def7fa62f4ef91dbc5c348a6ef8970b5ebabffa3cda1fb471f7594280"},
+    {"path":".github/workflows/live-gateway.yml","bytes":585,"sha256":"3e98e682a91cccf48bc97d4f7ca08822739b3501c3cdd5b5550abfcbb8b176c5"},
+    {"path":".gitignore","bytes":153,"sha256":"89ede964641916e30d5f520329990e11f7774fa9111ec17fece9040a1e414f35"},
+    {"path":"CHANGELOG.md","bytes":1639,"sha256":"fae95f06033c0df5dd0d8e90c8daa0a0d0cd31bcf9b2a561d25004d481ff786e"},
+    {"path":"LICENSE","bytes":1076,"sha256":"10a744c528b0b5352da8e99ee8c4cc29a77eab01a7a020aa92286e861ed93b27"},
+    {"path":"README.md","bytes":4140,"sha256":"905730f860a36b4a27415b19a32a3a04594feec0ebbce776d084cba0bdd24555"},
+    {"path":"VERIFICATION_REPORT.md","bytes":2668,"sha256":"b0c5c85deab884b2f85c150edca75e7efb1a38be98cd10a0963011e158317123"},
+    {"path":"bin/crimson.js","bytes":376,"sha256":"47d3912367ab928a3a33a20a9676b4baf0f89b89d367b73f9c99d1da6b4077ec"},
+    {"path":"config.example.json","bytes":877,"sha256":"cc29e433c499b4ff8acd97e11acdbfb7a4b45ca3d3eedcb4586576b564b211bf"},
+    {"path":"docs/ARCHITECTURE.md","bytes":1743,"sha256":"3e63fc8b6ee5d1bc86871e303d1f963a1952291eb32815a55e3967b52c02ea35"},
+    {"path":"docs/COMMANDS.md","bytes":749,"sha256":"c0baf5814ca412d22b681e84381fd467a48bd8b78daa018d9045e77318a70745"},
+    {"path":"docs/GATEWAYS.md","bytes":1665,"sha256":"53e75339bebbf76041d186a5e4fd316958c4bb25ba6d2bd5865f01f4b1927e00"},
+    {"path":"docs/LOADOUT.md","bytes":1363,"sha256":"1f5c0481f53e741e85691163c6a74a6337f7d74d3c59425e4385868113d2311a"},
+    {"path":"docs/SECURITY.md","bytes":1634,"sha256":"a741b423f37a86dab14358eefcd7a5fca513d4351666bcb58cdd032e10a1fd15"},
+    {"path":"docs/SETUP.md","bytes":1304,"sha256":"e302303b9a92a3d346e68aec30c105e54739412cfc5bdff5b6a069fa5013c92c"},
+    {"path":"docs/TUI.md","bytes":1176,"sha256":"971b390784a77db3f7045628177e1bb5b55abda814b985ce8db719cf2c4d046d"},
+    {"path":"docs/UPDATES.md","bytes":1367,"sha256":"9faae542dd8a59bc52eb6256b9e3fbc9906cb68dd41f1e3d2cb8a0a0dc24305b"},
+    {"path":"docs/V0.3.0_FINISHING_PLAN.md","bytes":1541,"sha256":"e7bbc96b813f3846b8c4fef7d27ff5cb15c475e2955689e0e86c7a0309a5d0e7"},
+    {"path":"docs/VERIFICATION.md","bytes":1364,"sha256":"df7f8c867d8b17ef6663af7f3577b5d4c2822fdb57abf39b43ff445cfbffc55c"},
+    {"path":"install.ps1","bytes":897,"sha256":"68fa7e7676d87960843da2297cd98e10baa04bae1f877e81634781f3cf072e50"},
+    {"path":"install.sh","bytes":612,"sha256":"056f7f67f2b4aed7addb6b772ad655b5c0c1148f6d99927c1290120c03e57eb1"},
+    {"path":"package.json","bytes":1452,"sha256":"5cae336a77b5ede3e6fbb2059c11d4cdc1937d1cc6fd9de063e63fd6b905e79c"},
+    {"path":"scripts/live-gateway-check.js","bytes":973,"sha256":"c5f8bd8cbe6e30c100486f2ae679188d695aef80724c77e99a4ea34bb3d25825"},
+    {"path":"src/agent/prompt.js","bytes":1080,"sha256":"e507bfe99c5b593f9bf3ee1b994efd35249e09a8fae943048c5641c1e3646710"},
+    {"path":"src/agent/runtime.js","bytes":3333,"sha256":"e046745c5b641eab42fb92a796023d115cd93f68e9ef2659e9d6e2b2058fd471"},
+    {"path":"src/cli-v3.js","bytes":4466,"sha256":"2e75016e745977a6c31dac694751c77593c328cd2942035f4f04cdd402af3b57"},
+    {"path":"src/cli.js","bytes":16239,"sha256":"ca068ce51764e1d8400abc917a7b165dacd4b2ec5e138ad69ccc12a4ebdac981"},
+    {"path":"src/core/fs.js","bytes":1470,"sha256":"6c3bda8657b26d48dbe8695dc0a2c3716b9396d945b2e2b92f0dca95965cb84f"},
+    {"path":"src/core/identity.js","bytes":157,"sha256":"6136bf7423b05e6978fcb4a9c00c3f062e9ca7b7a861dacc23e612f4eed9d15a"},
+    {"path":"src/core/log.js","bytes":995,"sha256":"47582e4889ad81d9ccf741bfe424d1cb8c827db0a5eb153d61011fde5160a17e"},
+    {"path":"src/core/paths.js","bytes":1545,"sha256":"b4e09dd7a74aa44e728929ad711234fd92bb53557134c5c0800039204c920bc2"},
+    {"path":"src/core/revisions.js","bytes":1118,"sha256":"a08e4071e6881e3e8b7e117ce3fc2791dc93370c6e488ae48c5f4ba7efbb8282"},
+    {"path":"src/core/secrets.js","bytes":5291,"sha256":"cbb78343b054b9b34580787aa4f7601f6af60854c1674a0232f320d5ad982e7e"},
+    {"path":"src/core/state.js","bytes":5391,"sha256":"91941a7a06dcdecdca4bcd6af9cc8696b325593be06f36decf3e26d46ff6eefb"},
+    {"path":"src/core/terminal.js","bytes":1004,"sha256":"a0ec8d36dbb2f52fccb11d37738b7aa3d2e0d0903e918137a7449dbc08d4ef59"},
+    {"path":"src/core/update.js","bytes":10658,"sha256":"4273fa45f9989d03790dfa64819752fc3ae01c4e91ec76929018e2635e13fc57"},
+    {"path":"src/core/yaml.js","bytes":3017,"sha256":"5f84a2d6a0ec85427413fd430cea9e1d41e03557ce50124f2ae6c09efb39ed20"},
+    {"path":"src/doctor.js","bytes":3723,"sha256":"9770863f13f1b22914c91d3e93ecff8e4f69104dc00cc187f2a3c6211a8302ae"},
+    {"path":"src/gateway/common.js","bytes":2028,"sha256":"2fff3bdc1c0926fb482d21db31eac2031bf0aaa0dd472be09614fd427a9617a9"},
+    {"path":"src/gateway/discord.js","bytes":5522,"sha256":"8f37f22f146bfac87762f6d359cebcb5a41fedd6473a21dbb65918309762828a"},
+    {"path":"src/gateway/index.js","bytes":929,"sha256":"8d052d4fd1f7d6ad25a0e0bdb22e387889409f1461f112b4f74578b67fa890d1"},
+    {"path":"src/gateway/telegram.js","bytes":3159,"sha256":"a05ddce0a750cee466ed9e375052a875c7588185cb93fc09704a2a2a4a65fae2"},
+    {"path":"src/index.js","bytes":603,"sha256":"78de1dc5535f6372891d0bf8a3517eb85e9fdfefc362131104e7c2c7d399622f"},
+    {"path":"src/loadout/catalog.js","bytes":3506,"sha256":"9a6e849d20e09c5c484ec93ca54d7def607a92d7fc33e6641e464b25832b7c54"},
+    {"path":"src/loadout/engine.js","bytes":6747,"sha256":"1bfbbe32ba0cf8ed1bb72afc1a907299fe58d2db06bee0abc48cbe5addf89f5b"},
+    {"path":"src/providers/catalog.js","bytes":5804,"sha256":"257b33252415f785ea341aff6d59ef0f3d3411e09761d2ecd1975e9ae3672f32"},
+    {"path":"src/providers/client.js","bytes":4041,"sha256":"4fa193891919635caa70b8c141ca8f598ec49c37e7dbf9fbddfa3b3b091552d1"},
+    {"path":"src/providers/picker.js","bytes":3647,"sha256":"4d5e263f9fb602393b1ca7d1e4305156e7a52eccee013587fbe4b0803b3e2d91"},
+    {"path":"src/session/session.js","bytes":3552,"sha256":"e12938582bb04ee7508488f4f64eb5d32b87150476a609f85655fccea501fae0"},
+    {"path":"src/setup/full.js","bytes":11389,"sha256":"206c826e3337d1185c13c76ff83634d0d847dc18e2ac2d266ff36327ec66d60b"},
+    {"path":"src/tui/ansi.js","bytes":2329,"sha256":"155b2b3ae5e3457a5f6b6f248151df8a98107890966b470063595328372b7881"},
+    {"path":"src/tui/app.js","bytes":16286,"sha256":"18ac5ba845330aab8f2bd4c98b3e4cc887b9eb4550bf0139eeb8f5e35953d939"},
+    {"path":"src/tui/input.js","bytes":1394,"sha256":"ea6b76b60674e12b640f0282f0411cbdcd8d629d9c312b1f93da73a1f3b15975"},
+    {"path":"src/tui/layout.js","bytes":7121,"sha256":"b50789bd51087192d96d7fb9bf2769a97b7e9543ef2b95684eb2d5d54d23a240"},
+    {"path":"test/agent.test.js","bytes":2796,"sha256":"a794d55d16e23b43947756160c24b36d2e23b4055e7fcb30961ebc9f90ae8a7b"},
+    {"path":"test/cli.test.js","bytes":2083,"sha256":"0cb94d3baf5c071110c2b0ef8c516f830003ddbabcf3bc1ccd98000ee600248f"},
+    {"path":"test/doctor.test.js","bytes":775,"sha256":"8e166bbde0affe7daf28a19c0fc4d3cb882eb17c1097e10f5718c6246b0ea891"},
+    {"path":"test/gateway.test.js","bytes":3543,"sha256":"0b3cfae673faa199e858a1606f62ad8d5e1243eafb6535bde7cbbd3fc4a95355"},
+    {"path":"test/helpers.js","bytes":570,"sha256":"11bd5c8a7ca58acaf2381b3a97a465c0946901d5e9f141126848fa152ffb13f9"},
+    {"path":"test/install.test.js","bytes":459,"sha256":"b5431a8ee25538d2895003c1202b209c1f9c01a243a6ba4c0ff08615135f6622"},
+    {"path":"test/loadout.test.js","bytes":3390,"sha256":"66c500d0f791b5c41a7942b0020dc3d56339d0082e6749ffc266eb71a18ebec0"},
+    {"path":"test/no-em-dash.test.js","bytes":821,"sha256":"72f592276f9dc401a4c2da068018f581b60ab7775fe18e0de98cbc6798ced998"},
+    {"path":"test/package.test.js","bytes":419,"sha256":"e7630cafd850b213f7ed4cc980ceff895114a9ef4acf0cd37934b5839871d2da"},
+    {"path":"test/providers.test.js","bytes":5103,"sha256":"be617d9093af9a18cf24651dbf9268fae9d0475f8093aae5cd37dc27c7e0817f"},
+    {"path":"test/secrets.test.js","bytes":2152,"sha256":"dde813e374167d2fd132e8ac8c6407eba550626a797f1cfbd6646a9dd9d1d826"},
+    {"path":"test/security.test.js","bytes":1357,"sha256":"59586ea7c04e02081ef71b332cc51fbeb4d76c2bfca0e86532e48baa8150c646"},
+    {"path":"test/session.test.js","bytes":2516,"sha256":"f75f98af285f9437a392011d59f0dcf54599db8c3e165d4ad26b3884ed9586aa"},
+    {"path":"test/setup.test.js","bytes":3388,"sha256":"080e9ca45ab4695b76acf229b8832b66425d8e02316c664e945ecaadf656c94e"},
+    {"path":"test/state.test.js","bytes":2871,"sha256":"e4fe8964a1fc6804a3a53eb5e77cdc64c35390d598f684d6819f7afdc10ea0ce"},
+    {"path":"test/syntax-check.js","bytes":931,"sha256":"ee7ef722c8efed0196eeaa77b450fefe9d66068f6078672748d43cc17b25067d"},
+    {"path":"test/tui-input.test.js","bytes":993,"sha256":"21fbe1f7f35bf8accbd530f5eab3d6def43e9b73b5d10b64dd7d344a92eb8470"},
+    {"path":"test/tui-layout.test.js","bytes":4176,"sha256":"fbe1e44858f41c4fc7e4fd00fd20834fea0d83789fb9d159b87da1449ec49ac0"},
+    {"path":"test/update.test.js","bytes":4000,"sha256":"a56ad1c08f80d54028eb547619a2c92f5515b652dc35c95ce9a41557dbc0a4fc"}
   ]
 }

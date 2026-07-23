@@ -21,7 +21,7 @@ test('CLI version and help smoke tests', () => {
   try {
     const version = run(['--version'], tmp.dir);
     assert.equal(version.status, 0, version.stderr);
-    assert.equal(version.stdout.trim(), '0.2.0');
+    assert.equal(version.stdout.trim(), '0.3.0');
     const help = run(['--help'], tmp.dir);
     assert.equal(help.status, 0, help.stderr);
     assert.match(help.stdout, /crimson setup/);
@@ -35,7 +35,7 @@ test('CLI status and doctor initialize local workspace', () => {
     const status = run(['status', '--json'], tmp.dir);
     assert.equal(status.status, 0, status.stderr);
     const parsed = JSON.parse(status.stdout);
-    assert.equal(parsed.version, '0.2.0');
+    assert.equal(parsed.version, '0.3.0');
     assert.equal(parsed.model.provider, null);
     const doctor = run(['doctor', '--json'], tmp.dir);
     assert.equal(doctor.status, 0, doctor.stderr);

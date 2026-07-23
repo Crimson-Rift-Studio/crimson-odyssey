@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
+import { writeJSON } from '../src/core/fs.js';
 import { initializeWorkspace, loadWorkspaceState, updateYamlFile, readYamlFile } from '../src/core/state.js';
 import { stringifyYAML, parseYAML } from '../src/core/yaml.js';
 import { listRevisions, rollbackFile } from '../src/core/revisions.js';
@@ -46,5 +47,19 @@ test('Soul and Identity edits create revisions and can roll back', () => {
     assert.equal(listRevisions(paths.soul, paths.revisions).length, 1);
     rollbackFile(paths.soul, paths.revisions, 0);
     assert.equal(readYamlFile(paths.soul).purpose, original.purpose);
+  } finally { tmp.cleanup(); }
+});
+
+test('config schema migration preserves user values and adds setup defaults', () => {
+  const tmp = tempDir();
+  try {
+    const paths = initializeWorkspace(tmp.dir);
+    writeJSON(paths.config, { schemaVersion: 2, ui: { theme: 'custom' }, history: { retentionDays: 180 } });
+    const state = loadWorkspaceState(tmp.dir);
+    assert.equal(state.config.schemaVersion, 3);
+    assert.equal(state.config.ui.theme, 'custom');
+    assert.equal(state.config.history.retentionDays, 180);
+    assert.equal(state.config.setup.completed, false);
+    assert.equal(state.config.updates.mode, 'notify');
   } finally { tmp.cleanup(); }
 });

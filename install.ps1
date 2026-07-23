@@ -1,5 +1,5 @@
 param(
-  [string]$Repository = "github:aabrur/crimson-odyssey",
+  [string]$Repository = "github:aabrur/crimson-odyssey#main",
   [switch]$FromCurrentDirectory
 )
 

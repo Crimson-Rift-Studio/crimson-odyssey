@@ -1,5 +1,35 @@
 # Changelog
 
+## 0.3.0 - Third Rift
+
+### Added
+
+- One-command full AI agent setup through `crimson setup`
+- Language, Identity, Soul, provider, model, Loadout, security, retention, updates, and gateway onboarding
+- Secure credential choices with keyring or encrypted vault recommended by default
+- Starter Loadout profiles for Balanced, Builder, Creative, and Minimal workflows
+- Setup completion and schema migration metadata
+- Update status, check, apply, and configure commands
+- Notify, ask, auto, and disabled update modes
+- Git and global npm installation detection
+- Cached remote update metadata and semantic version comparison
+- Dirty Git working tree protection and fast-forward-only update application
+- Update availability during interactive startup and through CLI commands
+- Tag-driven GitHub package release workflow
+
+### Changed
+
+- `crimson setup` now runs the complete onboarding flow
+- `crimson model` provides model-only reconfiguration
+- Config schema upgraded from 2 to 3 without replacing existing user values
+- Installers target `github:aabrur/crimson-odyssey#main`
+
+### Verification
+
+- 55 automated tests passed
+- JavaScript syntax verification passed
+- Package, secret scan, no-em-dash, setup, update, and TUI gates passed
+
 ## 0.2.0 - Second Rift
 
 ### Added
@@ -7,29 +37,6 @@
 - Adaptive TUI with no outer top or left frame
 - Scroll-preserving conversation history and fixed bottom composer
 - Responsive, independently scrollable right sidebar
-- Inline detail strip and keyboard legends below the composer
-- Shared provider-first model selection for setup and TUI
-- Ten provider profiles plus custom OpenAI-compatible endpoint
-- Live model catalog cache and manual model ID entry
+- Shared provider-first model selection
 - Project-local Soul, Identity, Heartbeat, Agent, Memory, Session, and Workspace state
-- Soul and Identity revision history with rollback
-- Loadout slots for Weapon, Armor, two Accessories, and two Magic
-- External skill installation from `skill.json` or `SKILL.md`
-- Full first-turn Loadout bootstrap with selective context after bootstrap
-- Telegram long-polling gateway with owner binding
-- Discord Gateway WebSocket adapter with owner and server restrictions
-- Operating-system keyring support with encrypted local vault fallback
-- Configurable 90-day history retention
-- Cross-platform installer scripts and CI verification
-
-### Security
-
-- Secrets are referenced, never stored in workspace config
-- Logs redact common token formats
-- Remote gateway messages are rejected until owner pairing succeeds
-- Discord outgoing messages disable automatic mentions
-- Model output is sanitized before terminal rendering
-
-### Compatibility
-
-- Requires Node.js 22 or newer
+- Loadout engine and owner-only Telegram and Discord gateways

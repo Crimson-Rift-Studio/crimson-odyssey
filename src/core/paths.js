@@ -41,6 +41,8 @@ export function globalPaths(home = globalHome()) {
     vault: join(home, 'secrets.vault'),
     vaultKey: join(home, 'vault.key'),
     cache: join(home, 'cache'),
-    logs: join(home, 'logs')
+    logs: join(home, 'logs'),
+    updateCache: join(home, 'cache', 'update-status.json'),
+    updateLock: join(home, 'cache', 'update.lock')
   };
 }

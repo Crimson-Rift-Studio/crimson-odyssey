@@ -18,6 +18,8 @@ export async function runDoctor({ workspace = process.cwd(), live = false, docto
   checks.push(check('Soul', Boolean(state.soul?.purpose), state.paths.soul));
   checks.push(check('Identity', Boolean(state.identity?.name), state.paths.identity));
   checks.push(check('Heartbeat', Boolean(state.heartbeat?.status), state.paths.heartbeat));
+  checks.push(check('Setup', Boolean(state.config.setup?.completed), state.config.setup?.completed ? `completed with v${state.config.setup.version || 'unknown'}` : 'run crimson setup', 'warning'));
+  checks.push(check('Update policy', ['notify', 'ask', 'auto', 'off'].includes(state.config.updates?.mode), state.config.updates?.mode || 'not configured', 'warning'));
   checks.push(check('Model provider', Boolean(state.model?.provider), state.model?.provider || 'not configured', 'warning'));
   checks.push(check('Model ID', Boolean(state.model?.model), state.model?.model || 'not configured', 'warning'));
   if (state.model?.secretRef) {

@@ -50,7 +50,7 @@ export const DEFAULT_WORKSPACE = {
 };
 
 export const DEFAULT_CONFIG = {
-  schemaVersion: 2,
+  schemaVersion: 3,
   ui: {
     sidebarBreakpoint: 110,
     sidebarWidth: 34,
@@ -69,11 +69,34 @@ export const DEFAULT_CONFIG = {
     ownerOnly: true,
     redactLogs: true,
     allowShell: false
-  }
+  },
+  updates: {
+    mode: 'notify',
+    channel: 'stable',
+    intervalHours: 24,
+    repository: 'aabrur/crimson-odyssey',
+    branch: 'main'
+  },
+  setup: {
+    completed: false,
+    version: null,
+    completedAt: null
+  },
+  providers: {}
 };
 
 function writeYamlIfMissing(file, value) {
   if (!existsSync(file)) atomicWrite(file, `${stringifyYAML(value)}\n`);
+}
+
+function mergeDefaults(defaults, current) {
+  if (Array.isArray(defaults)) return Array.isArray(current) ? current : defaults;
+  if (!defaults || typeof defaults !== 'object') return current === undefined ? defaults : current;
+  const out = { ...defaults };
+  for (const [key, value] of Object.entries(current || {})) {
+    out[key] = key in defaults ? mergeDefaults(defaults[key], value) : value;
+  }
+  return out;
 }
 
 export function initializeWorkspace(workspace = process.cwd()) {
@@ -85,7 +108,12 @@ export function initializeWorkspace(workspace = process.cwd()) {
   writeYamlIfMissing(p.identity, DEFAULT_IDENTITY);
   writeYamlIfMissing(p.agent, DEFAULT_AGENT);
   writeYamlIfMissing(p.workspaceConfig, { ...DEFAULT_WORKSPACE, root: p.workspace });
-  if (!existsSync(p.config)) writeJSON(p.config, DEFAULT_CONFIG);
+
+  const currentConfig = readJSON(p.config, null);
+  const migratedConfig = mergeDefaults(DEFAULT_CONFIG, currentConfig || {});
+  migratedConfig.schemaVersion = DEFAULT_CONFIG.schemaVersion;
+  if (!currentConfig || JSON.stringify(currentConfig) !== JSON.stringify(migratedConfig)) writeJSON(p.config, migratedConfig);
+
   if (!existsSync(p.model)) writeJSON(p.model, { provider: null, model: null, custom: false, updatedAt: null });
   if (!existsSync(p.heartbeat)) writeJSON(p.heartbeat, {
     status: 'idle',

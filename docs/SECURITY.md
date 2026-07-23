@@ -2,14 +2,20 @@
 
 ## Credentials
 
-Crimson stores API keys and bot tokens in the operating-system keyring when a supported keyring command is available:
+Normal users do not need to create `.env`. The setup wizard stores API keys and bot tokens in the operating-system keyring when a supported command is available:
 
 - macOS Keychain through `security`
 - Linux Secret Service through `secret-tool`
 
-When a keyring is unavailable, Crimson uses an AES-256-GCM encrypted local vault under `~/.crimson`. The vault key and encrypted data file are created with owner-only permissions where the operating system supports POSIX modes.
+When a keyring is unavailable, Crimson uses an AES-256-GCM encrypted local vault under `~/.crimson`. Windows uses this encrypted vault fallback unless a future Windows Credential Manager backend is installed.
 
-Workspace configuration only contains references such as `keyring:openai-api-key`, `vault:telegram-bot-token`, or `env:OPENAI_API_KEY`.
+Workspace configuration contains only references such as `keyring:openai-api-key`, `vault:telegram-bot-token`, or `env:OPENAI_API_KEY`.
+
+## Update safety
+
+The updater never edits `.crimson/odyssey/` workspace state. Git updates require a clean working tree and use fast-forward-only pull. Crimson does not reset, stash, or discard user changes.
+
+Global package updates require existing GitHub authentication when the repository is private.
 
 ## Logs
 
@@ -19,7 +25,7 @@ Do not paste credentials into prompts. Revoke any credential that has been share
 
 ## Remote access
 
-Telegram and Discord are owner-only in v0.2.0. A correct UID alone is not enough. The configured owner must also complete an expiring `/bind CODE` challenge.
+Telegram and Discord are owner-only. A correct UID alone is not enough. The configured owner must complete an expiring `/bind CODE` challenge.
 
 ## Terminal safety
 

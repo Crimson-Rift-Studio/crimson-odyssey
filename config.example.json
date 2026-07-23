@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "ui": {
     "sidebarBreakpoint": 110,
     "sidebarWidth": 34,
@@ -19,16 +19,28 @@
     "redactLogs": true,
     "allowShell": false
   },
+  "updates": {
+    "mode": "notify",
+    "channel": "stable",
+    "intervalHours": 24,
+    "repository": "aabrur/crimson-odyssey",
+    "branch": "main"
+  },
+  "setup": {
+    "completed": false,
+    "version": null,
+    "completedAt": null
+  },
   "providers": {
     "openai": {
-      "secretRef": "env:OPENAI_API_KEY"
+      "secretRef": "vault:openai-api-key"
     },
     "ollama": {
       "baseUrl": "http://127.0.0.1:11434"
     },
     "custom": {
       "baseUrl": "http://127.0.0.1:8000/v1",
-      "secretRef": "env:CRIMSON_CUSTOM_API_KEY"
+      "secretRef": "vault:custom-api-key"
     }
   }
 }
